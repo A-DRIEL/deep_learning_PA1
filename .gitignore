@@ -1,0 +1,19 @@
+@"
+# dados (baixados via script, não versionados)
+data/raw/
+
+# ambiente virtual
+.venv/
+
+# checkpoints e outputs pesados
+outputs/
+*.pt
+*.pth
+
+# python
+__pycache__/
+*.pyc
+
+# jupyter
+.ipynb_checkpoints/
+"@ | Out-File -FilePath .gitignore -Encoding utf8
