@@ -17,3 +17,6 @@ __pycache__/
 # jupyter
 .ipynb_checkpoints/
 "@ | Out-File -FilePath .gitignore -Encoding utf8
+
+# imagens geradas
+*.png
