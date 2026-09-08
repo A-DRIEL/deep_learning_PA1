@@ -33,7 +33,7 @@ class ResUNet(nn.Module):
     Saída: (B, num_classes, H, W) -- logits (sem sigmoid/softmax)
     """
 
-    def __init__(self, in_channels=3, num_classes=1, base_channels=32):
+    def __init__(self, in_channels=3, num_classes=3, base_channels=32):
         super().__init__()
         c = base_channels
 
