@@ -1,0 +1,515 @@
+{
+  "per_image": [
+    {
+      "mAP": 0.6760245275759413,
+      "count_error": 0,
+      "n_gt_instances": 36
+    },
+    {
+      "mAP": 0.3644599844599845,
+      "count_error": 0,
+      "n_gt_instances": 7
+    },
+    {
+      "mAP": 0.570059052059052,
+      "count_error": 4,
+      "n_gt_instances": 23
+    },
+    {
+      "mAP": 0.5349027752126492,
+      "count_error": 5,
+      "n_gt_instances": 30
+    },
+    {
+      "mAP": 0.9111111111111111,
+      "count_error": 0,
+      "n_gt_instances": 5
+    },
+    {
+      "mAP": 0.3083157999156395,
+      "count_error": 4,
+      "n_gt_instances": 32
+    },
+    {
+      "mAP": 0.6538581941881174,
+      "count_error": 3,
+      "n_gt_instances": 23
+    },
+    {
+      "mAP": 0.45617587465326537,
+      "count_error": 12,
+      "n_gt_instances": 78
+    },
+    {
+      "mAP": 0.19204581967739862,
+      "count_error": 2,
+      "n_gt_instances": 11
+    },
+    {
+      "mAP": 0.39869793329944625,
+      "count_error": 31,
+      "n_gt_instances": 157
+    },
+    {
+      "mAP": 0.06671095242416931,
+      "count_error": 22,
+      "n_gt_instances": 46
+    },
+    {
+      "mAP": 0.325830764217861,
+      "count_error": 6,
+      "n_gt_instances": 26
+    },
+    {
+      "mAP": 0.3024418549390354,
+      "count_error": 10,
+      "n_gt_instances": 60
+    },
+    {
+      "mAP": 0.27943663285795173,
+      "count_error": 0,
+      "n_gt_instances": 54
+    },
+    {
+      "mAP": 0.6509486166007904,
+      "count_error": 5,
+      "n_gt_instances": 22
+    },
+    {
+      "mAP": 0.7425,
+      "count_error": 0,
+      "n_gt_instances": 9
+    },
+    {
+      "mAP": 0.1264049967208207,
+      "count_error": 4,
+      "n_gt_instances": 23
+    },
+    {
+      "mAP": 0.26143097212706723,
+      "count_error": 6,
+      "n_gt_instances": 23
+    },
+    {
+      "mAP": 0.27880559263977683,
+      "count_error": 11,
+      "n_gt_instances": 60
+    },
+    {
+      "mAP": 0.2716176026328091,
+      "count_error": 15,
+      "n_gt_instances": 51
+    },
+    {
+      "mAP": 0.24331851166269697,
+      "count_error": 12,
+      "n_gt_instances": 50
+    },
+    {
+      "mAP": 0.23428367794377766,
+      "count_error": 3,
+      "n_gt_instances": 38
+    },
+    {
+      "mAP": 0.5768292396009786,
+      "count_error": 4,
+      "n_gt_instances": 21
+    },
+    {
+      "mAP": 0.19936057838431254,
+      "count_error": 2,
+      "n_gt_instances": 40
+    },
+    {
+      "mAP": 0.7923188405797101,
+      "count_error": 1,
+      "n_gt_instances": 23
+    },
+    {
+      "mAP": 0.8239316239316239,
+      "count_error": 0,
+      "n_gt_instances": 8
+    },
+    {
+      "mAP": 0.4960078205482329,
+      "count_error": 0,
+      "n_gt_instances": 16
+    },
+    {
+      "mAP": 0.5071872388409571,
+      "count_error": 2,
+      "n_gt_instances": 28
+    },
+    {
+      "mAP": 0.35586460968240097,
+      "count_error": 7,
+      "n_gt_instances": 49
+    },
+    {
+      "mAP": 0.49509465502568945,
+      "count_error": 3,
+      "n_gt_instances": 22
+    },
+    {
+      "mAP": 0.2849881142414275,
+      "count_error": 12,
+      "n_gt_instances": 36
+    },
+    {
+      "mAP": 0.3869047562636661,
+      "count_error": 4,
+      "n_gt_instances": 20
+    },
+    {
+      "mAP": 0.14976101667278136,
+      "count_error": 7,
+      "n_gt_instances": 31
+    },
+    {
+      "mAP": 0.2225862257184465,
+      "count_error": 14,
+      "n_gt_instances": 31
+    },
+    {
+      "mAP": 0.5858026571130018,
+      "count_error": 1,
+      "n_gt_instances": 19
+    },
+    {
+      "mAP": 0.3974663491636166,
+      "count_error": 4,
+      "n_gt_instances": 15
+    },
+    {
+      "mAP": 0.6443190764116421,
+      "count_error": 9,
+      "n_gt_instances": 101
+    },
+    {
+      "mAP": 0.5468432450865345,
+      "count_error": 5,
+      "n_gt_instances": 90
+    },
+    {
+      "mAP": 0.7804600301659125,
+      "count_error": 1,
+      "n_gt_instances": 15
+    },
+    {
+      "mAP": 0.8801970443349754,
+      "count_error": 1,
+      "n_gt_instances": 20
+    },
+    {
+      "mAP": 0.23948125404007756,
+      "count_error": 2,
+      "n_gt_instances": 10
+    },
+    {
+      "mAP": 0.4220305845968051,
+      "count_error": 41,
+      "n_gt_instances": 191
+    },
+    {
+      "mAP": 0.5716893218076897,
+      "count_error": 2,
+      "n_gt_instances": 46
+    },
+    {
+      "mAP": 0.10050375184972779,
+      "count_error": 67,
+      "n_gt_instances": 111
+    },
+    {
+      "mAP": 0.6588193258354549,
+      "count_error": 1,
+      "n_gt_instances": 35
+    },
+    {
+      "mAP": 0.19480051923217406,
+      "count_error": 31,
+      "n_gt_instances": 74
+    },
+    {
+      "mAP": 0.5228640915097065,
+      "count_error": 4,
+      "n_gt_instances": 66
+    },
+    {
+      "mAP": 0.6901660296225514,
+      "count_error": 1,
+      "n_gt_instances": 14
+    },
+    {
+      "mAP": 0.8916666666666666,
+      "count_error": 0,
+      "n_gt_instances": 5
+    },
+    {
+      "mAP": 0.367715687820951,
+      "count_error": 7,
+      "n_gt_instances": 29
+    },
+    {
+      "mAP": 0.27711377650553976,
+      "count_error": 19,
+      "n_gt_instances": 16
+    },
+    {
+      "mAP": 0.4600678733031674,
+      "count_error": 3,
+      "n_gt_instances": 12
+    },
+    {
+      "mAP": 0.14107142857142857,
+      "count_error": 3,
+      "n_gt_instances": 6
+    },
+    {
+      "mAP": 0.21255434039644566,
+      "count_error": 2,
+      "n_gt_instances": 14
+    },
+    {
+      "mAP": 0.654090354090354,
+      "count_error": 1,
+      "n_gt_instances": 10
+    },
+    {
+      "mAP": 0.6049242424242424,
+      "count_error": 1,
+      "n_gt_instances": 18
+    },
+    {
+      "mAP": 0.2779072766099414,
+      "count_error": 7,
+      "n_gt_instances": 22
+    },
+    {
+      "mAP": 0.4006349456377265,
+      "count_error": 5,
+      "n_gt_instances": 26
+    },
+    {
+      "mAP": 0.7486596736596737,
+      "count_error": 1,
+      "n_gt_instances": 10
+    },
+    {
+      "mAP": 0.20199960686028798,
+      "count_error": 6,
+      "n_gt_instances": 14
+    },
+    {
+      "mAP": 0.5102809834622282,
+      "count_error": 2,
+      "n_gt_instances": 23
+    },
+    {
+      "mAP": 0.5204733401146932,
+      "count_error": 8,
+      "n_gt_instances": 73
+    },
+    {
+      "mAP": 0.2254728644432622,
+      "count_error": 15,
+      "n_gt_instances": 37
+    },
+    {
+      "mAP": 0.8539682539682539,
+      "count_error": 0,
+      "n_gt_instances": 10
+    },
+    {
+      "mAP": 0.24987491455912508,
+      "count_error": 4,
+      "n_gt_instances": 15
+    },
+    {
+      "mAP": 0.6621314671975586,
+      "count_error": 9,
+      "n_gt_instances": 126
+    },
+    {
+      "mAP": 0.47604339989849576,
+      "count_error": 11,
+      "n_gt_instances": 50
+    },
+    {
+      "mAP": 0.8886363636363637,
+      "count_error": 0,
+      "n_gt_instances": 10
+    },
+    {
+      "mAP": 0.4690853525939733,
+      "count_error": 6,
+      "n_gt_instances": 25
+    },
+    {
+      "mAP": 0.5591215357233664,
+      "count_error": 1,
+      "n_gt_instances": 16
+    },
+    {
+      "mAP": 0.5728985682498122,
+      "count_error": 16,
+      "n_gt_instances": 106
+    },
+    {
+      "mAP": 0.6281759291404183,
+      "count_error": 11,
+      "n_gt_instances": 106
+    },
+    {
+      "mAP": 0.20833333333333331,
+      "count_error": 1,
+      "n_gt_instances": 3
+    },
+    {
+      "mAP": 0.3450210694565533,
+      "count_error": 2,
+      "n_gt_instances": 23
+    },
+    {
+      "mAP": 0.6857149122807018,
+      "count_error": 1,
+      "n_gt_instances": 14
+    },
+    {
+      "mAP": 0.669682822623999,
+      "count_error": 3,
+      "n_gt_instances": 14
+    },
+    {
+      "mAP": 0.7824397824397824,
+      "count_error": 0,
+      "n_gt_instances": 10
+    },
+    {
+      "mAP": 0.3584078652828653,
+      "count_error": 9,
+      "n_gt_instances": 24
+    },
+    {
+      "mAP": 0.6086093875692631,
+      "count_error": 13,
+      "n_gt_instances": 126
+    },
+    {
+      "mAP": 0.4532965552965552,
+      "count_error": 7,
+      "n_gt_instances": 24
+    },
+    {
+      "mAP": 0.4378953596176558,
+      "count_error": 19,
+      "n_gt_instances": 62
+    },
+    {
+      "mAP": 0.6457792207792207,
+      "count_error": 5,
+      "n_gt_instances": 21
+    },
+    {
+      "mAP": 0.42385168872038853,
+      "count_error": 3,
+      "n_gt_instances": 47
+    },
+    {
+      "mAP": 0.43150608053833855,
+      "count_error": 4,
+      "n_gt_instances": 22
+    },
+    {
+      "mAP": 0.14727272727272728,
+      "count_error": 0,
+      "n_gt_instances": 6
+    },
+    {
+      "mAP": 0.3015257343551505,
+      "count_error": 17,
+      "n_gt_instances": 63
+    },
+    {
+      "mAP": 0.7074313725490196,
+      "count_error": 1,
+      "n_gt_instances": 16
+    },
+    {
+      "mAP": 0.0,
+      "count_error": 0,
+      "n_gt_instances": 2
+    },
+    {
+      "mAP": 0.7746498599439776,
+      "count_error": 0,
+      "n_gt_instances": 11
+    },
+    {
+      "mAP": 0.599859578079142,
+      "count_error": 1,
+      "n_gt_instances": 40
+    },
+    {
+      "mAP": 0.20895545802666543,
+      "count_error": 6,
+      "n_gt_instances": 19
+    },
+    {
+      "mAP": 0.45417963388823795,
+      "count_error": 13,
+      "n_gt_instances": 65
+    },
+    {
+      "mAP": 0.6558322281167109,
+      "count_error": 2,
+      "n_gt_instances": 24
+    },
+    {
+      "mAP": 0.7301515151515151,
+      "count_error": 2,
+      "n_gt_instances": 18
+    },
+    {
+      "mAP": 0.5889672849836189,
+      "count_error": 2,
+      "n_gt_instances": 18
+    },
+    {
+      "mAP": 0.6444444444444444,
+      "count_error": 0,
+      "n_gt_instances": 8
+    },
+    {
+      "mAP": 0.3195648030130788,
+      "count_error": 12,
+      "n_gt_instances": 25
+    },
+    {
+      "mAP": 0.4528517941126668,
+      "count_error": 14,
+      "n_gt_instances": 89
+    },
+    {
+      "mAP": 0.8017962429727135,
+      "count_error": 0,
+      "n_gt_instances": 10
+    },
+    {
+      "mAP": 0.8106532356532357,
+      "count_error": 1,
+      "n_gt_instances": 11
+    },
+    {
+      "mAP": 0.36419445149622304,
+      "count_error": 3,
+      "n_gt_instances": 38
+    }
+  ],
+  "summary": {
+    "mAP_mean": 0.4736940250961507,
+    "mAP_std": 0.21825556565322243,
+    "count_error_mean": 6.534653465346534,
+    "count_error_std": 9.37720467165835
+  }
+}

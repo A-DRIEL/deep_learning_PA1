@@ -47,7 +47,7 @@ def main():
     apply_clean_style(axes[1])
 
     plt.tight_layout()
-    plt.savefig("outputs/density_vs_performance.png", dpi=150, bbox_inches="tight")
+    plt.savefig("./outputs/density_vs_performance.png", dpi=150, bbox_inches="tight")
     print("Figura salva em outputs/density_vs_performance.png")
 
     corr_map = np.corrcoef(densities, maps)[0, 1]

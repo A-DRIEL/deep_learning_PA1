@@ -6,9 +6,8 @@ data/raw/
 .venv/
 
 # checkpoints e outputs pesados
-outputs/
-*.pt
-*.pth
+outputs/*.pt
+outputs/*.pth
 
 # python
 __pycache__/
@@ -17,6 +16,3 @@ __pycache__/
 # jupyter
 .ipynb_checkpoints/
 "@ | Out-File -FilePath .gitignore -Encoding utf8
-
-# imagens geradas
-*.png
