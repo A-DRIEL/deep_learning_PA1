@@ -83,7 +83,7 @@ uv run python -m scripts.sanity_check_synthetic
 ```
 Treina em poucos minutos, IoU/Dice próximos de 1.0.
 
-## Treino no dado real (Parte 1 — baseline)
+## Treino no dado real (Parte 1)
 
 ```powershell
 uv run python -m scripts.train_dsb2018_baseline
