@@ -1,4 +1,4 @@
-# src/postprocess/tiled_inference.py
+# src/postprocessing/tiled_inference.py
 
 import numpy as np
 import torch
