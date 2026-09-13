@@ -29,10 +29,18 @@ class DSB2018Dataset(Dataset):
     máscara.
     """
 
-    def __init__(self, root_dir, target_size=(128, 128)):
+    def __init__(self, root_dir, target_size=(128, 128), normalize="fixed"):
+        """
+        normalize:
+            "fixed"      -- comportamento original: divide por 255.0
+            "percentile" -- estica os percentis 1-99 de CADA imagem
+                            individualmente para a faixa [0, 1]. Ajuda
+                            com imagens de baixo contraste ou modalidade
+                            muito diferente do padrão do dataset.
+        """
         self.root_dir = Path(root_dir)
-        self.target_size = target_size  # (H, W)
-
+        self.target_size = target_size
+        self.normalize = normalize
         self.sample_dirs = sorted(
             d for d in self.root_dir.iterdir() if d.is_dir()
         )
@@ -58,7 +66,6 @@ class DSB2018Dataset(Dataset):
 
     def _load_image(self, sample_dir, image_id):
         image_path = sample_dir / "images" / f"{image_id}.png"
-
         image = cv2.imread(str(image_path), cv2.IMREAD_UNCHANGED)
 
         if image is None:
@@ -71,8 +78,18 @@ class DSB2018Dataset(Dataset):
         elif image.shape[2] == 3:
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-        image = image.astype(np.float32) / 255.0
-        return image  # (H, W, 3)
+        image = image.astype(np.float32)
+
+        if self.normalize == "percentile":
+            p1, p99 = np.percentile(image, [1, 99])
+            if p99 > p1:  # evita divisão por zero em imagens totalmente uniformes
+                image = np.clip((image - p1) / (p99 - p1), 0.0, 1.0)
+            else:
+                image = image / 255.0
+        else:  # "fixed", comportamento original
+            image = image / 255.0
+
+        return image
 
     def _load_instance_mask(self, sample_dir):
         masks_dir = sample_dir / "masks"

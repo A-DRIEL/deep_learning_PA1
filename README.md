@@ -1,101 +1,107 @@
 # Deep Learning PA1 — Segmentação de Instâncias
 
-## Setup do ambiente
+Segmentação de instâncias de núcleos DSB2018, usando arquiteturas
+de segmentação semântica adaptadas para produzir rótulos instance-aware
+## Ambiente
 
 Este projeto usa [uv](https://docs.astral.sh/uv/) para gerenciar dependências.
 
-1. Instale o uv (se ainda não tiver):
 ```powershell
-   powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+# instalar uv, se necessário
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+# sincronizar dependências -- escolha conforme seu hardware
+uv sync --extra gpu    # com GPU NVIDIA (CUDA 12.8+)
+uv sync --extra cpu    # sem GPU
 ```
 
-2. Clone o repositório e entre na pasta:
+Confirmar que funcionou:
 ```powershell
-   git clone <url-do-repo>
-   cd deep_learning_PA1
+uv run python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
 ```
-
-3. Sincronize as dependências, escolhendo conforme seu hardware:
-
-   **Com GPU NVIDIA (CUDA 12.8+):**
-```powershell
-   uv sync --extra gpu
-```
-
-   **Sem GPU (CPU-only):**
-```powershell
-   uv sync --extra cpu
-```
-
-4. Confirme que funcionou:
-```powershell
-   uv run python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"
-```
-   em CPU, `cuda.is_available()` deve mostrar `False`
 
 ## Download dos dados
 
-Usamos o dataset DSB2018 (BBBC038v1), via Kaggle API.
+Dataset: DSB2018 (BBBC038v1), via Kaggle API.
 
-1. Autentique no Kaggle (abre o navegador):
 ```powershell
-   uv run kaggle auth login
-```
-   Se ainda não aceitou as regras da competição, acesse
-   https://www.kaggle.com/competitions/data-science-bowl-2018/rules
-   e clique em "I Understand and Accept" antes de continuar.
+uv run kaggle auth login
+# se for a primeira vez, aceite as regras da competição em:
+# https://www.kaggle.com/competitions/data-science-bowl-2018/rules
 
-2. Baixe e extraia os dados:
-```powershell
-   New-Item -ItemType Directory -Force -Path data\raw
-   uv run kaggle competitions download -c data-science-bowl-2018 -f stage1_train.zip -p data\raw
-   uv run kaggle competitions download -c data-science-bowl-2018 -f stage1_test.zip -p data\raw
-   Expand-Archive -Path "data\raw\stage1_train.zip" -DestinationPath "data\raw\stage1_train" -Force
-   Expand-Archive -Path "data\raw\stage1_test.zip" -DestinationPath "data\raw\stage1_test" -Force
-   Remove-Item data\raw\stage1_train.zip, data\raw\stage1_test.zip
+New-Item -ItemType Directory -Force -Path data\raw
+uv run kaggle competitions download -c data-science-bowl-2018 -f stage1_train.zip -p data\raw
+Expand-Archive -Path "data\raw\stage1_train.zip" -DestinationPath "data\raw\stage1_train" -Force
+Remove-Item data\raw\stage1_train.zip
 ```
 
-3. Confirme que baixou certo (deve mostrar 670):
+Confirme que baixou corretamente (deve mostrar 670):
 ```powershell
-   uv run python -c "from pathlib import Path; print(len(list(Path('data/raw/stage1_train').iterdir())))"
+uv run python -c "from pathlib import Path; print(len(list(Path('data/raw/stage1_train').iterdir())))"
 ```
 
 ## Split de dados
 
-O split treino/validação/teste é estratificado por modalidade de imagem
-(grayscale/fluorescência vs. colorida), inferida via variância de cor
-entre canais RGB (ver `scripts/inspect_modalities.py` para a análise
-que motivou o threshold escolhido).
+O split treino/validação/teste (70/15/15) é estratificado por modalidade de
+imagem (grayscale/fluorescência vs. colorida/histologia).
 
-O split já está versionado em `data/splits/split.json` para manter os resultados
-comparáveis entre diferentes execuções.
-
-Para validar que o split está íntegro:
+Para reproduzir do zero (opcional):
 ```powershell
-uv run python -m scripts.validate_split
+uv run python -m scripts.split_dataset
 ```
 
-## Testes de sanidade (Parte 0)
+## Treinar
 
-Confirma que o pipeline completo funciona, com dataset sintético:
+Modelo final: **ResUNet com cabeça de 3 classes (fundo/interior/borda) +
+decodificação watershed**.
+
 ```powershell
-uv run python -m scripts.sanity_check_synthetic
+uv run python -m scripts.compute_class_weights   # gera pesos de classe (balanceamento)
+uv run python -m scripts.train_dsb2018_3class    # treina o modelo final
 ```
-Treina em poucos minutos, IoU/Dice próximos de 1.0.
 
-## Treino no dado real (Parte 1)
-
+Também disponível, o baseline de segmentação binária da Parte 1:
 ```powershell
 uv run python -m scripts.train_dsb2018_baseline
 ```
 
-**Atenção**: em CPU, isso é significativamente mais lento que em GPU.
-Recomendado rodar em GPU local, ou usar Google Colab / Kaggle Notebooks
-se não tiver GPU disponível.
-
-## Visualizações
+## Avaliar
 
 ```powershell
-uv run python -m scripts.visualize_synthetic   # amostras do dataset sintético
-uv run python -m scripts.visualize_dsb2018     # amostras do dataset real
+uv run python -m scripts.evaluate_dsb2018_3class     # modelo final
+uv run python -m scripts.evaluate_instance_map        # baseline
 ```
+
+Métrica: mAP de instância (matching guloso por IoU decrescente, limiares
+0.50 a 0.95) e erro absoluto de contagem. Ver `src/metrics/instance_matching.py`.
+
+## Checkpoint do modelo final
+
+Pesos treinados (ResUNet 3 classes) incluídos no repositório em `outputs/resunet_3class.pt`.
+
+## Inferência em uma imagem nova
+
+Abra `inferencia.ipynb`, edite a variável `IMAGE_PATH` para o caminho da
+imagem desejada. O código carrega o
+checkpoint acima e devolve a máscara de instâncias colorida e a contagem
+de núcleos detectados.
+
+## Estrutura do repositório
+
+```
+data/splits/          # split.json (versionado)
+src/
+├── datasets/        # SyntheticEllipseDataset, DSB2018Dataset, DSB2018ThreeClassDataset
+├── models/          # ResUNet
+├── metrics/         # IoU/Dice, mAP de instância (matching guloso)
+├── postprocess/      # extração naive de instância, mosaico/tiling
+└── postprocessing/   # decodificação watershed
+
+scripts/             # scripts de treino, avaliação e visualização
+
+outputs/              # checkpoints (.pt, não versionados) e figuras de resultado
+```
+
+## AI_LOG
+
+Ver `AI_LOG.md` para o registro de uso de ferramentas de IA neste projeto.
