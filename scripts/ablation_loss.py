@@ -15,7 +15,7 @@ from src.postprocessing.watershed_decode import decode_watershed
 from src.metrics.instance_matching import mean_average_precision, count_error
 
 SEEDS = [0, 1]
-NUM_EPOCHS = 2  # ablação: reduzido em relação ao treino final (50)
+NUM_EPOCHS = 20 
 
 # ---- as 6 configurações que cobrem CE -> CE bal. -> focal -> focal bal. ----
 CONFIGS = {

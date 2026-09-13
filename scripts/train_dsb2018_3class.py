@@ -45,8 +45,8 @@ def train_resunet_3class(
     split_path="data/splits/split.json",
     checkpoint_path="outputs/resunet_3class.pt",
     seed=42,
-    num_epochs=15,
-    patience=None,
+    num_epochs=40,
+    patience=3,
     batch_size=8,
     num_workers=4,
     extra_train_ids=None,        # lista adicional de image_ids no treino

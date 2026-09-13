@@ -15,7 +15,7 @@ from src.postprocess.naive_instance import extract_instances_naive
 from src.metrics.instance_matching import mean_average_precision, count_error
 
 SEEDS = [0, 1]
-NUM_EPOCHS = 2  # ablação: reduzido em relação ao treino final (50)
+NUM_EPOCHS = 20
 
 MODELS = {
     "skip_connections": ResUNet,
