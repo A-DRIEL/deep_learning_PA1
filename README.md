@@ -72,7 +72,7 @@ uv run python -m scripts.evaluate_dsb2018_3class     # modelo final
 uv run python -m scripts.evaluate_instance_map        # baseline
 ```
 
-M�trica: mAP de instância (matching guloso por IoU decrescente, limiares
+Métrica: mAP de instância (matching guloso por IoU decrescente, limiares
 0.50 a 0.95) e erro absoluto de contagem. Ver `src/metrics/instance_matching.py`.
 
 ## Checkpoint do modelo final
@@ -89,15 +89,16 @@ de núcleos detectados.
 ## Estrutura do repositório
 
 ```
+data/splits/          # split.json (versionado)
 src/
 ├── datasets/        # SyntheticEllipseDataset, DSB2018Dataset, DSB2018ThreeClassDataset
 ├── models/          # ResUNet
 ├── metrics/         # IoU/Dice, mAP de instância (matching guloso)
-├── postprocess/      # extração ingênua de instância, mosaico/tiling
-└── postprocessing/   # decodificação watershed (Trilha A)
+├── postprocess/      # extração naive de instância, mosaico/tiling
+└── postprocessing/   # decodificação watershed
 
 scripts/             # scripts de treino, avaliação e visualização
-data/splits/          # split.json (versionado)
+
 outputs/              # checkpoints (.pt, não versionados) e figuras de resultado
 ```
 

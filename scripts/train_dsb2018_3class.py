@@ -30,29 +30,62 @@ def load_class_weights(path="data/class_weights_3class.json", device="cpu"):
     return torch.tensor(data["weights"], dtype=torch.float32, device=device)
 
 
-def main():
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Usando device: {device}")
+@torch.no_grad()
+def evaluate_val_loss(model, val_loader, criterion, device):
+    model.eval()
+    total_loss = 0.0
+    for images, labels in val_loader:
+        images, labels = images.to(device), labels.to(device)
+        total_loss += criterion(model(images), labels).item()
+    model.train()
+    return total_loss / len(val_loader)
 
-    split = load_split()
+
+def train_resunet_3class(
+    split_path="data/splits/split.json",
+    checkpoint_path="outputs/resunet_3class.pt",
+    seed=42,
+    num_epochs=15,
+    patience=None,
+    batch_size=8,
+    num_workers=4,
+    extra_train_ids=None,        # lista adicional de image_ids no treino
+):
+    torch.manual_seed(seed)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Usando device: {device} | seed: {seed} | split: {split_path}")
+
+    split = load_split(split_path)
     full_dataset = DSB2018ThreeClassDataset(
         "data/raw/stage1_train", target_size=(128, 128), border_width=2
     )
 
-    train_dataset = build_subset(full_dataset, split["train"])
-    val_dataset = build_subset(full_dataset, split["val"])
+    train_ids = list(split["train"])
+    if extra_train_ids:
+        # evita duplicar se algum id aparecer nos dois
+        train_ids = train_ids + [i for i in extra_train_ids
+                                 if i not in set(split["train"])]
+    print(f"Train size efetivo: {len(train_ids)}")
 
-    train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=8, shuffle=False)
+    train_dataset = build_subset(full_dataset, train_ids)
+    val_dataset   = build_subset(full_dataset, split["val"])
 
-    # única mudança arquitetural: num_classes=3
+    loader_kwargs = dict(
+        num_workers=num_workers,
+        pin_memory=(device.type == "cuda"),
+        persistent_workers=(num_workers > 0),
+    )
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, **loader_kwargs)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, **loader_kwargs)
+
     model = ResUNet(in_channels=3, num_classes=3, base_channels=32).to(device)
 
     class_weights = load_class_weights(device=device)
-    criterion = nn.CrossEntropyLoss(weight=class_weights)  # espera target (B,H,W) long
+    criterion = nn.CrossEntropyLoss(weight=class_weights)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
-    num_epochs = 50
+    best_val_loss = float("inf")
+    epochs_without_improvement = 0
     start_time = time.time()
 
     model.train()
@@ -70,15 +103,38 @@ def main():
 
             epoch_loss += loss.item()
 
-        avg_loss = epoch_loss / len(train_loader)
-        print(f"Epoch {epoch+1}/{num_epochs} - loss: {avg_loss:.4f}")
+        avg_train_loss = epoch_loss / len(train_loader)
+
+        if patience is None:
+            print(f"Epoch {epoch+1}/{num_epochs} - loss: {avg_train_loss:.4f}")
+            continue
+
+        val_loss = evaluate_val_loss(model, val_loader, criterion, device)
+        print(f"Epoch {epoch+1}/{num_epochs} - loss treino: {avg_train_loss:.4f} - loss val: {val_loss:.4f}")
+
+        if val_loss < best_val_loss - 1e-4:
+            best_val_loss = val_loss
+            epochs_without_improvement = 0
+        else:
+            epochs_without_improvement += 1
+            if epochs_without_improvement >= patience:
+                print(f"\nSem melhora na loss de val há {patience} épocas -- parando antecipadamente.")
+                break
 
     elapsed = time.time() - start_time
     print(f"\nTreino concluído em {elapsed:.1f}s ({elapsed/60:.2f} min)")
 
-    Path("outputs").mkdir(exist_ok=True)
-    torch.save(model.state_dict(), "outputs/resunet_3class.pt")
-    print("Checkpoint salvo em outputs/resunet_3class.pt")
+    Path(checkpoint_path).parent.mkdir(parents=True, exist_ok=True)
+    torch.save(model.state_dict(), checkpoint_path)
+    print(f"Checkpoint salvo em {checkpoint_path}")
+
+
+def main():
+    train_resunet_3class(
+        split_path="data/splits/split.json",
+        checkpoint_path="outputs/resunet_3class.pt",
+        seed=42,
+    )
 
 
 if __name__ == "__main__":
